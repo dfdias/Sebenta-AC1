@@ -1,0 +1,46 @@
+\select@language {portuguese}
+\contentsline {chapter}{\numberline {1}Opera\IeC {\c c}\IeC {\~o}es na Arquitectura MIPS}{9}
+\contentsline {section}{\numberline {1.1}Opera\IeC {\c c}\IeC {\~o}es Aritem\IeC {\'e}ticas}{9}
+\contentsline {subsection}{\numberline {1.1.1}Adi\IeC {\c c}\IeC {\~a}o e Subtra\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {subsection}{\numberline {1.1.2}Exemplo 1}{9}
+\contentsline {subsection}{\numberline {1.1.3}Mutlipica\IeC {\c c}\IeC {\~a}o}{10}
+\contentsline {section}{\numberline {1.2}Opera\IeC {\c c}\IeC {\~o}e s Load Store}{10}
+\contentsline {subsection}{\numberline {1.2.1}Exemplo 2}{11}
+\contentsline {section}{\numberline {1.3}Opera\IeC {\c c}\IeC {\~o}es com constantes e imediatos}{11}
+\contentsline {section}{\numberline {1.4}Opera\IeC {\c c}\IeC {\~o}es L\IeC {\'o}gicas}{11}
+\contentsline {subsection}{\numberline {1.4.1}Exemplo 3}{11}
+\contentsline {section}{\numberline {1.5}Opera\IeC {\c c}\IeC {\~o}es de Salto Condicional}{12}
+\contentsline {subsection}{\numberline {1.5.1}Nota sobre as opera\IeC {\c c}\IeC {\~o}es virtuais}{12}
+\contentsline {section}{\numberline {1.6}Opera\IeC {\c c}\IeC {\~o}es de salto}{12}
+\contentsline {chapter}{\numberline {2}Mem\IeC {\'o}ria do MIPS}{13}
+\contentsline {chapter}{\numberline {3}ISA-Instruction Set Architecture}{15}
+\contentsline {section}{\numberline {3.1}Instru\IeC {\c c}\IeC {\~o}es}{15}
+\contentsline {subsection}{\numberline {3.1.1}Instru\IeC {\c c}\IeC {\~o}es do tipo R}{15}
+\contentsline {subsection}{\numberline {3.1.2}Instru\IeC {\c c}\IeC {\~o}es do tipo I}{16}
+\contentsline {subsection}{\numberline {3.1.3}Exemplo 2}{16}
+\contentsline {chapter}{\numberline {4}Fun\IeC {\c c}\IeC {\~o}es}{17}
+\contentsline {chapter}{\numberline {5}Datapath}{19}
+\contentsline {section}{\numberline {5.1}Datapath Single Cycle}{19}
+\contentsline {paragraph}{PC + Mem\IeC {\'o}ria de Instru\IeC {\c c}\IeC {\~o}es}{19}
+\contentsline {paragraph}{Registos}{19}
+\contentsline {section}{\numberline {5.2}Datapath Multi Cycle}{19}
+\contentsline {subsection}{\numberline {5.2.1}Estrutura}{19}
+\contentsline {subsection}{\numberline {5.2.2}Fases de Execu\IeC {\c c}\IeC {\~a}o}{20}
+\contentsline {subsubsection}{Fase 1}{20}
+\contentsline {paragraph}{Sinais de Controlo}{20}
+\contentsline {paragraph}{Sinais de Controlo}{21}
+\contentsline {subsubsection}{Fase 3}{21}
+\contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~o}es de Refer\IeC {\^e}ncia \IeC {\`a} Mem\IeC {\'o}ria(LW,SW)}{21}
+\contentsline {subparagraph}{Sinais de Controlo}{21}
+\contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~o}es do tipo R}{21}
+\contentsline {subparagraph}{Sinais de Controlo}{21}
+\contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~a}o Branch}{21}
+\contentsline {subparagraph}{Sinais de Controlo}{21}
+\contentsline {paragraph}{Jump}{21}
+\contentsline {subsubsection}{Fase 4}{21}
+\contentsline {paragraph}{Refer\IeC {\^e}ncia \IeC {\`a} Mem\IeC {\'o}ria}{21}
+\contentsline {subparagraph}{Sinais de Controlo}{21}
+\contentsline {paragraph}{Conclus\IeC {\~a}o das instru\IeC {\c c}\IeC {\~o}es do tipo R}{22}
+\contentsline {subparagraph}{Sinais de Controlo}{22}
+\contentsline {subsubsection}{Fase 5}{22}
+\contentsline {subsection}{\numberline {5.2.3}Unidade de Controlo}{22}

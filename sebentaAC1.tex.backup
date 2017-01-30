@@ -1,0 +1,442 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+%\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Duarte Ferreira Dias }
+\title{Sebenta AC1}
+\begin{document}
+ \maketitle
+
+\chapter*{Introdução}
+
+\chapter*{Estrutura básica de um Processador}
+	Os cinco componentes básicos de um computador são o input, output, memória, \textit{datapath} e controlo.Estando os últimos dois elementos, geralmente integrados no processador.
+	
+	Segundo o modelo de von Neumann existem três tipos de BUS.
+		\begin{itemize}
+			\item \textbf{Data Bus}: barramento de transferência de informação;
+			\item \textbf{Adress Bus} : identifica a origem/destino da informação;
+			\item \textbf{Control Bus} : sinais de protocol especificam o modo como a transferência deve ser feita;
+		\end{itemize}
+	
+ \chapter*{Operações na Arquitectura MIPS}
+	\section{sp Operações Ariteméticas}
+	  Na arquitectura MIPS existem várias instruções aritméticas das quais se destacam :
+	    \begin{enumerate}
+	     \item add rd,rs,rt: corresponde à adição de b a c cujo resultado é guradado em \$rd;
+	     \item addu rd,rs,rt adição de grandezas sem sinal;
+	     \item sub rd,rs,rt : subtração de b a c armazenada em \$rd;  
+	     \item subu rd,rs,rt;
+	    \end{enumerate}
+
+	    \subsection{Adição e Subtração}
+	    	Na Arqutectura MIPS a adição é feita bit a bit da direita para a esquerda somando o carry se necessário. A subtração assenta na adição pelo que o um dos operandos é negado.
+
+	    	O overflow da operação ocorre quando o valor calculado excede o limite da representação.
+
+	    	Abaixo estão representadas as condições para as quais existem overflow na soma e subtração.
+
+
+			\begin{figure}[htp]
+			    \centering
+			    \includegraphics[scale=0.4]{of.png}
+			    \caption{Condições que comfirmam a existência de Overflow}
+			    \label{OF}
+			\end{figure}
+
+			As instruções add,addi e sub originam uma excepção no sistema quando é detetado overflow na operação.
+
+			Já as instruções addu,addiu e subu não lançam essas excepções.
+
+			Uma vez que a linguagem C ignora as situações de overflow, por isso os compiladores C do MIPS e geram sempre as versões sem sinal das operações ariteméticas(unsigned).
+
+	    \subsection{Exemplo 1}
+	     Vamos efectuar as operações add e sub.
+	      \begin{lstlisting}
+		f = (g+h)-(i+j); // Sintaxe em C
+	      \end{lstlisting}
+	      
+	     \begin{lstlisting}
+		#Sintaxe em Assembly do MIPS 
+		add $t0,$1,$2;  # $t0 contem $1 e $2 -> g+h
+		add $t1,$3,$4;  # $t1 contem $3 e $4 -> i+j
+		sub $s0,$t0,$t1;
+	     \end{lstlisting}
+
+	     \subsection{Mutlipicação}
+
+	     Usando as operações mult e mulu é possivel multiplicar o conteudo de dois registos
+
+	     Numa primeira abordagem a execução desta operação consite em replicar em hardware as iterações que se fazem no papel.
+
+   			\begin{figure}[htp]
+			    \centering
+			    \includegraphics[scale=0.5]{mul1.png}
+			    \caption{Primeira Implementação de um muiltiplicador}
+			    \label{mul1}
+			\end{figure}
+
+		Sgindo o método usual seria necessário shiftar 32 vezes o multiplicando para efectuar a operação. Essa operação de shift implica que o multiplicando se mova 32 bits para a esquerda, obrigndo a que o registo que o alberga tenha 64 bits de tamanho.Esse registo é shiftado um bit para a esquerda por cada iteração.
+
+		Os treês passos de execução apresentados são repetidos 32 vezes para executar a multiplicação.Se cada operação fosse feita a cada ciclo de relógio demoraria 96 ciclos de relógio a se executada, o que torna a implementação bastante ineficiente.
+
+		Uma forma de optimizar este processo é paralelizar algumas das operações, reduzindo significativamente os ciclos de relógio, mais especificamente $1/3$ dos ciclos necessários.Podemos com esta configuração efetuar a operação com uma iteração por ciclo de relógio.
+
+		Outra maneira utilizada pelos compiladores do MIPS é usar shifts para a esquerda ao invés da multiplicar, porém só é valido quando os registos são multiplicados por constantes, ou registos cujo valor equivalha a uma potência de dois;
+
+   			\begin{figure}[htp]
+			    \centering
+			    \includegraphics[scale=0.5]{mul2.png}
+			    \caption{Implementação optimizada de um muiltiplicador}
+			    \label{mul2}
+			\end{figure}
+
+		Resta abordar a forma como se armazena o resultado da operação uma vez que o tamanho do produto é de 64 bits.O MIPS disponibiliza dois registos de 32 bits para armazenar o produto um chama-se Hi e o outro Lo. Para buscar o valor na forma de inteiro de 32 bits é usada a pseudoinstrução mflo(\textit{move from lo}). 
+
+
+
+	
+	\section{Operaçõe s Load Store}
+	
+	  Como as operações ariteméticas operam apenas sobre registos, torna-se necessária  a criação de instruções que permitam carregar(\textit{load}) e guardar(\textit{store}) os valores dos registos da e para a memória.
+	  Surge, então, duas operações, a \textit{load-word} com a sintaxe \textbf{lw}\$rd,offset(\$registobase) e que permite a transferência de dados da memória para um regsto de destino, já a instrução \textit{load-word}  \textbf{sw}\$rs,offset(\$registobase) 	  que por oposição guarda na memória os valores de um registo.
+	  
+	   \subsection{Exemplo 2}
+	      Aplcação da instrução \textit{load-word}
+	      
+	      \begin{lstlisting}
+		//sintaxe C 
+	        g = h + A[8]; 
+	        
+	        #sintaxe Assembly do MIPS
+	        lw $t0,32($s3);   #offset (4*8) da memoria
+	        add %s1;$s2,$t0; #soma
+	      \end{lstlisting}
+
+	      Outro Exemplo agora com a aplicação de ambas as operações.
+	      
+	     \begin{lstlisting}
+		//sintaxe C 
+	        A[12] = h + A[8]; 
+	        
+	        #sintaxe Assembly do MIPS
+	        lw $t0,32($s3);   #leitura com offset (4*8) da memoria
+	        add %s1;$s2,$t0;  #soma
+	        sw $s2,48($s4);	  #armazenamento com offset (12*4) da memoria
+	      \end{lstlisting}
+
+	  \section {Operações com constantes e imediatos}
+	      
+	      Grande parte dos programas recorre a um numero de variáveis maior que o o número de registos do processador. Por isso o compilador tenta guardar apenas aquelas variáveis que 
+	      que são mais utilizadas nos registos e move as outras para a menmória.
+	      
+	      Um dos principios fundamentais do design de processadores surgere que a velocidade de acesso aos registos é maior que a de acesso à memória.
+	      
+	      Para implementar operações com imediatos pode-se recorrer ás seguintes instruções:
+	      
+		\begin{lstlisting}
+		  lw $t0,const4addr($s1);#t0 = 4
+		  add $s3,$s3,$t0; #s3 = s3 + t0(4) 
+		\end{lstlisting}
+		
+	      A alternativa para implementar esta instrução é usar:
+	      
+		\begin{lstlisting}
+		  addi $s3,$s3,4;
+		\end{lstlisting}
+		
+	      O MIPS aceita nativamente esta instrução, permitiundo suprimir o uso da instrução lw juntamente com a add, optimizando assim a execução do programa.
+	      
+	  \section{Operações Lógicas}
+	  
+	    O mips suporta as seguintes operações lógicas:
+	      \begin{itemize}
+	       \item sll -> shift left logical;
+	       \item srl-> shift right logical;
+	       \item and,andi -> bitwise AND(pode ser feito com um imediato);
+	       \item or,ori   -> bitwise OR (pode ser feito com um imediato);
+	       \item nor;
+	      \end{itemize}
+	      
+	      Uma aplicação bastante não tão óbvia do shift left logical permite multiplicar o valor do registo a shiftar pela potencia de 2 da quantidade de shift.
+
+	    \subsection{Exemplo 3}
+	      
+	      A operação de shift left logical :
+	      
+	      \begin{lstlisting}
+		sll $t2,$t0,4 # $t2 = $t0 <<4;
+	      \end{lstlisting}
+	      
+	      \begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+op & rs & rt & rd & shmnt & funct\\\hline
+0 & 0 & 16 & 10 & 4 & 0\\\hline
+	      \end{tabular}
+	      \end{center}
+
+
+  \section{Operações de Salto Condicional}
+  
+  As estruturas de decisão mais usadas em programação são os if's. As instruções que permitem implementar essas estruturas em MIPS são:
+    \begin{itemize}
+     \item beq \$rd,\$rt,label -> branch if equal -> consiste em comparar valores de dois registos e deteminar se são iguais;
+     \item bne \$rd,\$rt,label-> branch not equal -> consiste em determinar se dois registos são diferentes slatando para uma label onde estará o conjunto de instruções que deve ser executado caso a instrução se confirme.   
+    \end{itemize}
+     
+     \subsection{Nota sobre as operações virtuais}
+
+	Todas as outras operações de salto condicional resultam da conjugação da operação (slt ou slti) que retorna um caso o valor lógico 1 caso o primeiro registo seja menor do que o o segundo e 0 caso o contrário.
+	
+	A conjugação do set on less com as operações de salto condicional bne e beq permitem impelemtar as operações:
+	    \begin{itemize}
+	     \item bge;
+	     \item bgt;
+	     \item ble;
+	     \item bnez;
+	     \item beqz;
+	     \item blt
+	   \end{itemize}
+
+ 	\section*{Operações de salto}
+
+ 		Estas operações são necessárias para efetuar um salto de uma instrução para a outra.
+
+ 		Existem três operações de salto a JAL , JR e J.
+
+ 		A jal (mais conhecida por \textit{jump and link}) é utilizada para saltar para o endereço da instrução que cooresponde ao inicio duma função, para elem disso guarda o valor do Program Counter e adiciona-he mais quatro para que quando a função acabar de executar e retornar o resultado ela vai saltar para o endereço da instrução seguinte à da execução da função;
+
+ 		O jr ou  \textit{Jump Register}  consiste em saltar para um endereço especificado por um registo.
+
+
+
+	   
+ \chapter*{Memória do MIPS}
+    Todas as linguagens de programação suportam vários tipos de dados cuja complexidade pode variar do muito simples(constantes, variáveis) para tipos de dados mais complicados(são exemplo os arrays e estruturas de dados).
+    Uma vez que o processador não consegue armazenar grandes volumes de dados no seu interior( 32 registos de 32 bits no caso do MIPS), este delega essa função para a memória que por sua vez é capaz de guardar grandes volumes de dados.
+    
+    Por vezes torna-se útil endereçar individualmente cada um dos quatro bytes que constitui uma palavra. Pode-se dizer que a memória é\textit{byte-adressable}
+    É por isso que na arquitectura MIPS o endereçamento à memória deve ser feito em multiplos de quatro.
+    Para que este tipo de endereçamento seja possivel é necessário inserir um offset para aceder aos vários bytes que constituem a palavra.
+    Este método de endereçar os dados armazenados permite optimizar a preformance geral do sistema pois optimiza as transferências na memória.
+    
+    
+ \chapter*{ISA-Instruction Set Architecture}
+
+	De uma forma geral, o CPU segue a seguinte ordem de execução das instruções que lhe são fornecidas:
+		\begin{enumerate}
+			\item \textbf{Instruction Fetch} -> passo no qual é feita a leitura de código máquina da instrução.(Instrução reside em memória);
+			\item \textbf{Instruction Decode} -> nesta fase é feita a descodificação da instrução pela unidade de controlo presente no processador;
+			\item \textbf{Operand Fetch} -> leitura dos operandos;
+			\item \textbf{Execute} -> é feita a execução da operação especificada pela instrução;
+			\item \textbf{Store Result} -> o resultado das operações efetuadas no passo anterior são posteriormente transferidas para o o registo especificado pela operação.
+		\end{enumerate}
+	
+	O \textit{Instruction Set} propriamente dito corresponde ao conjunto de instruções que o processador é capaz de executar.
+	Por norma cada arquitetura de processadores ou micro-controladores tem o seu \textbf{Instruction Set} dentro das mais populares destacam-se os ISA's do MIPS, ARM, Intel x86, Power PC e Cell;
+	
+	
+	\section*{Instruções}
+	
+	Na arquitetura MIPS existem três tipos de instruções.Estas instruções servem têm comportamentos diferentes assim como fins diferentes.
+	
+	Todas as instruções do MIPS são armazenadas em registos de 32 bits tendo o tamanho fixo.
+	
+	O número de registos disponíveis é de 32 bits.Este número reduzido de registos deve-se principalmente a duas razões. Uma delas é que ao aumentar o número de registos aumenta-se o número de 
+	ciclos de relógio necessários para o acesso à memória, reduzindo a performance do processador, a outra prende-se com manter o tamanho das instruções pois aumentando o numero de registos era necessário 
+	aumentar a quantidade de bits nos campos de endereçamento da memória.  
+	
+	\subsection*{Instruções do tipo R}
+	
+	Estas instruções são responsáveis pelas operações lógicas e aritméticas.
+		
+	Têm como operandos os seguintes elementos:
+	 \begin{itemize}
+	 	\item \textbf{op} : mais conhecido por opcode, representa a operação da instrução que foi dada-6 bits;
+	 	\item \textbf{rs} : o operando do segundo registo-5 bits;
+	 	\item \textbf{rt} : operando do segundo registo-5 bits;
+	 	\item \textbf{rd} : registo de destino onde é guardado o resultado da operação a executar-5bits.
+	 \end{itemize}
+	
+
+	\begin{figure}[htp]
+	    \centering
+	    \includegraphics[scale=0.4]{fig1.png}
+	    \caption{configuração das intruções do tipo R}
+	    \label{insturçãor}
+	\end{figure}
+
+		
+	
+	\subsection*{Instruções do tipo I}
+	
+	As instruções do tipo I são usadas para exprimir as operações de leitrua e escrita na memória assim como as operações com imediatos.
+	
+	Por permitir o endereçamento à memoria e representação de constantes a configuração das istruções é diferente.
+	É de notar que a arquitetutra MIPS opta por manter o tamanho das intruções fixo (32 bits) alterando-se o tamanho de alguns dos campos da instrução..
+		
+	Têm como operandos os seguintes elementos:
+	 \begin{itemize}
+	 	\item \textbf{op} : mais conhecido por opcode, representa a operação da instrução que foi dada-6 bits;
+	 	\item \textbf{rs} : registo sobre o qual vais ser processada a operação-5 bits;
+	 	\item \textbf{rt} : opernado que armazena o registo com o valor base do endereçamento-5 bits;
+	 	\item \textbf{offset} : registo no qual é armazenado o endereço da memória ou o valor da constante a ser carregado-16bits;
+	 \end{itemize}
+	
+	\begin{figure}[htp]
+	    \centering
+	    \includegraphics[scale=0.4]{instI.png}
+	    \caption{configuração das intruções do tipo I}
+	    \label{insturçãoi}
+	\end{figure}
+
+	  \subsection*{Exemplo 1}
+	  
+	  \begin{lstlisting}
+	    lw $t0,32($s3)  #$s3 => 19
+	  \end{lstlisting}
+	  
+	  Ao utilizar esta operção iriamos obter uma istrução do tipo I com os seguintes valores nos seus campos:
+
+	  
+	  {%
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\begin{center}
+\begin{tabular}{|llll|}\hline
+\mc{1}{|l|}{opcode} & \mc{1}{l|}{rs} & \mc{1}{l|}{rt} & offset\\\hline
+\mc{1}{|l|}{35} & \mc{1}{l|}{19} & \mc{1}{l|}{8} & 32\\\hline
+
+	  \end{tabular}
+	  \end{center}
+}%
+
+ Ficamos com a seguinte instrução em binário 
+     100011100111000000000000010000
+	  
+	  \subsection{Exemplo 2}
+	  
+	   
+	  \begin{lstlisting}
+	  
+	   A[300] = h + A[300];//sintaxe em c
+	   
+	   lw $t0,1200($t1)
+	   add $t0,$t0,$s2
+	   sw $t0,1200($t1)  
+	  \end{lstlisting}
+	  
+	  
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\begin{center}
+\begin{tabular}{|llll|}\hline
+\mc{1}{|l|}{opcode} & \mc{1}{l|}{rs} & \mc{1}{l|}{rt} & offset\\\hline
+\mc{1}{|l|}{35} & \mc{1}{l|}{19} & \mc{1}{l|}{8} & 1200\\\hline
+
+	  \end{tabular}
+	  \end{center}
+
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\begin{center}
+\begin{tabular}{|llll|}\hline
+\mc{1}{|l|}{opcode} & \mc{1}{l|}{rs} & \mc{1}{l|}{rt} & offset\\\hline
+\mc{1}{|l|}{43} & \mc{1}{l|}{9} & \mc{1}{l|}{8} & 1200\\\hline
+
+	  \end{tabular}
+	  \end{center}
+	  
+
+
+
+
+  \chapter*{Funções}
+  	
+  	Na Arquitectura MIPS as funções seguem  a seguinte sequência de execução:
+  	
+  	\begin{enumerate}
+  		\item Colocar os argumentos nos registos \$a0,\$a1,\$sa2,\$a3 (exceção será abordado abaixo);
+  		\item Começar a execução da função, faz-se por via da instrução jal (\textit{"jump and link"}) que guarda o endereço da instrução seginte em \$ra;
+  		\item Alocar memória para a execução do procedimento;
+  		\item Executar a função;
+  		\item Guardar o valor de retorno em \$v0 ou \$v1;
+  		\item Finalmente usa-se a instrução de salto jr com o valor de \$ra(registo que guarda o ponto a retornar) para saltar para a instrução seguinte função chamadora estava antes de iniciar a função.
+	\end{enumerate}  	 
+
+		Existem dois tipos de funções:
+		 \begin{itemize}
+		    \item Folha : todo o conjunto de subrotinas que não chama uma subrotina;
+		    \item Não Folha : analogamente são aquelas funções que chamam funções dentro de si mesmas.
+		 \end{itemize}
+ 
+ 		Em casos normais a ordem de processamento segue a ordem desses pontos, porém quando os 
+ 		valores de return ou argumentos são mais do que os que estão convencionados torna-se 
+ 		necessário proceder com alguma cautela.
+
+ 		Relembrando que a função não pode deixar resíduos da sua execução qualquer, os registos 
+ 		da função chamadora que forem precisos guardar têm que ser repostos imediatamente após a
+ 		 execução da função e com o valor que tinham quando antes da função ser executada.
+
+ 		A estrutura de dados ideal para implementar o que acima foi descrito é uma stack(LIFO).
+ 		A stack precisa de um ponteiro(\$sp, \textit{Stack Pointer}) que referencie o endereço que foi alterado mais recentemente por forma a permitir que a funcção a executar saiba onde guardar os seus dados assim como permite restaurar os valores antigos.
+ 		Por cada dado que é acrescentado é necessário dar um incremento de uma palavra ao \textit{Stack Pointer}(4bytes).
+ 		Por convenção uma pilha enche do endereço mais alto para o mais pequeno.Por isso quando se adiciona conteudo à mesma é necessário decrementar o valor do ponteiro.
+
+
+ 		\begin{figure}[htp]
+	    	\centering
+	    	\includegraphics[scale=0.6]{stack1.png}
+	    	\caption{Comportamento do \textit{Stack Pointer}}
+	    	\label{stack 1}
+		\end{figure}
+
+      
+ 		\begin{figure}[htp]
+	    	\centering
+	    	\includegraphics[scale=0.6]{registerconvention.png}
+	    	\caption{Convenções dos Registos no MIPS}
+	    	\label{conventions}
+		\end{figure}
+
+	\chapter*{Datapath}
+
+		\section*{Datapath Single Cycle}
+
+			Nos capitulos acima forma descritas as instuções base do MIPS agora vamos tentar criar um processador que execute essas instruções o conjunto de blocos que as executa chama-se de datapath.
+
+			Os dois primeiros passos de execução de uma instrução consistem em :
+
+			\begin{enumerate}
+				\item Usando o endereço de memória armazenado no PC para aceder à instrução armazenada na memória de instruções;
+				\item Ler o conteudo de um ou dois registos(depende da instrução a executar);
+			\end{enumerate}
+
+			Depois destes dois passos iniciais dependendo do tipo de instrução a executar os dados vão seguir caminhos diferenntes.Dentro do mesmo tipo de instruções os elementos a usar não variam muito, tornando mais fácia a implementação do Datapath.
+
+			Abaixo seguem os elementos base e as suas funcionalidades de um datapath single cycle.
+
+			\paragraph{PC + Memória de Instruções}
+
+				A junção do PC com a Memória de instruções e um adder permite-nos montar um circuito que permite efetuar o endereçamento à memória de instrução para poder dar inicio à execução de uma instrução o adder permite determinar qual o endereço da próxima instrução.Esse adder vai adicionar 4 bytes ao endereço atual do PC (PC+4).
+
+			\paragraph{Registos}
+
+				
+
+
+
+		\section*{Datapath Multi Cycle}
+			
+		    A implementação do datapath Multi Cycle consiste em 
+
+
+
+			
+   
+   \end{document}
