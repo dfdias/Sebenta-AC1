@@ -43,8 +43,33 @@
 		\begin{itemize}
 			\item \textbf{Data Bus}: barramento de transferência de informação;
 			\item \textbf{Adress Bus} : identifica a origem/destino da informação;
-			\item \textbf{Control Bus} : sinais de protocol especificam o modo como a transferência deve ser feita;
+			\item \textbf{Control Bus} : sinais de protocolo que especificam o modo como a transferência deve ser feita;
 		\end{itemize}
+
+	\section{Memória/Registos}
+
+		A memória do mips merece um capítulo por si só mas fica aqui uma introdução...
+
+		O endereço é um número que identifica um úncio registo de memória, estes são contados de 0 até ao limite definido pela arquitectura.
+
+		Por consequêrncia o espaço de endereçamento é a gama total de endereços que o CPU consegue referenciar, isto é, o numero de registos de memória endereçaveis pelo sistema. Por exemplo, um cpu com um barramento de enderços de 16 bits consegue referenciar endereços que se encontrem na gama : 0x0000 <-> 0xFFFF.
+
+	\section{Dados}
+
+		A secção de dados, masi conehcida por datapath, envolve todos os elementos operativos e ou funcionais para o encaminhamento, processamento e armazenamento de informação. Entre eles, destacam-se os muxs, ALU e registos internos.
+
+	\section{Unidade de Controlo}
+
+		A unidade de controlo, comforme o tipo de datapath implementado, pode ser puramente combinatória ou uma máquuina de estados finit, algo que vai ser explorado no capítulo de Datapaths. Esta tem como função de gerar sinais(sinais de controlo) que em função das instruções recebidas pelo datapath permitem o correto encaminhamento, processamento e armazenamento das instruções.
+
+		Independentemente da unidade de controlo o CPU é e será sempre uma máquina de estados síncrona.
+
+
+
+
+
+
+
 
  \chapter{Operações na Arquitectura MIPS}
 
@@ -275,6 +300,9 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	O número de registos disponíveis é de 32 bits.Este número reduzido de registos deve-se principalmente a duas razões. Uma delas é que ao aumentar o número de registos aumenta-se o número de
 	ciclos de relógio necessários para o acesso à memória, reduzindo a performance do processador, a outra prende-se com manter o tamanho das instruções pois aumentando o numero de registos era necessário
 	aumentar a quantidade de bits nos campos de endereçamento da memória.
+
+	
+
 
 	\subsection{Instruções do tipo R}
 
@@ -904,7 +932,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 		\newline
 
-		Embora as situações acima referidas permitam fazer uma deteção de Hazards esta não é suficiente, para o ser é ncessário avaliar o valor do sinal que controla a escrita nos registos(RegDst)
+		Embora as situações acima referidas permitam fazer uma deteção de Hazards esta não é suficiente, para o ser, é necessário avaliar o valor do sinal que controla a escrita nos registos(RegDst)
 
 		\newline
 		Ficamos com:
@@ -930,33 +958,29 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	 \begin{lstlisting}
 
     lw $t0,0($t1)
-		lw $t2,4(t1)
+		lw $t2,4($t1)
 		sub $s0,$t1,$t2 #Aqui ocorre stalling causado por um Hazzard de dados
-		sw  $t0,4(t1)
+		sw  $t0,4($t1)
  		#efetuando uma troca ficamos com:
 		lw $t0,0($t1)
-		lw $t2,4(t1)
-		sw  $t0,4(t1)
+		lw $t2,4($t1)
+		sw  $t0,4($t1)
 		sub $s0,$t1,$t2 #efetivamente a troca da instrução de sub com a sw não tem efeito no resultado final do programa
 	 \end{lstlisting}
 
+	 Outro exemplo
 
+	 \begin{lstlisting}
+	 	lw  $4,20($1)
+	 	sub $2,$4,$3 #Aqui ocorre stalling causado por um Hazzard de dados
+	 	add $3,$3,$2
+	 \end{lstlisting}
 
+	 Na primeira parte do exemplo dado acima podemos concluir que o stalling é desencadeado quando uma instrução aritmética(ou lógica) é executada a seguir a uma instrução de load com a qual estabelece dependência, registo 4. A situação de stalling é desencadeada quando sub(instrução do tipo R) se encontra na sua fase de ID e pode ser detetada se atendermos à seguinte condição:
 
+	(\textbf{MEM/WB.RegWrite} == 1) and (\textbf{EX/MEM.RDD} == \textbf{RS} or \textbf{EX/MEM.RDD} == \textbf{RT}).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	Quando é detetada a situação de stalling è inserida uma \textit{bubble} na fase EX fazendo um reset síncrono ao registo ID/EX. De seguida param-se as fases IF e ID para impedir a escrita no registo IF/ID e o incremento do PC.
 
 
 
