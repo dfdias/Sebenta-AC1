@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.12.17)  30 JAN 2017 12:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.12.17)  31 JAN 2017 00:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1080,198 +1080,171 @@ Cap\'{\i }tulo 4.
 
 ]
 Cap\'{\i }tulo 5.
-<fig1.png, id=60, 919.18407pt x 115.18031pt>
+[15] <fig1.png, id=63, 919.18407pt x 115.18031pt>
 File: fig1.png Graphic file (type png)
  <use fig1.png>
-Package pdftex.def Info: fig1.png used on input line 322.
+Package pdftex.def Info: fig1.png used on input line 385.
 (pdftex.def)             Requested size: 367.66711pt x 46.07129pt.
- [15] <instI.png, id=64, 907.13907pt x 103.88812pt>
+ <instI.png, id=64, 907.13907pt x 103.88812pt>
 File: instI.png Graphic file (type png)
  <use instI.png>
-Package pdftex.def Info: instI.png used on input line 346.
+Package pdftex.def Info: instI.png used on input line 409.
 (pdftex.def)             Requested size: 362.8492pt x 41.5545pt.
- [16 </home/duarte/MEOCloud/AC1-sebenta/fig1.png (PNG copy)> </home/duarte/MEOCloud/AC1-sebenta/instI.png (PNG copy)>]
+ [16 </home/duarte/MEOCloud/AC1-sebenta/fig1.png (PNG copy)>] [17 </home/duarte/MEOCloud/AC1-sebenta/instI.png (PNG copy)>] [18
+
+]
 Cap\'{\i }tulo 6.
-<stack1.png, id=68, 778.40813pt x 282.30469pt>
+<stack1.png, id=74, 778.40813pt x 282.30469pt>
 File: stack1.png Graphic file (type png)
  <use stack1.png>
-Package pdftex.def Info: stack1.png used on input line 443.
+Package pdftex.def Info: stack1.png used on input line 515.
 (pdftex.def)             Requested size: 467.04848pt x 169.38411pt.
- <registerconvention.png, id=69, 612.03656pt x 255.20343pt>
+ <registerconvention.png, id=75, 612.03656pt x 255.20343pt>
 File: registerconvention.png Graphic file (type png)
  <use registerconvention.png>
-Package pdftex.def Info: registerconvention.png used on input line 451.
+Package pdftex.def Info: registerconvention.png used on input line 523.
 (pdftex.def)             Requested size: 367.22476pt x 153.12323pt.
- [17
-
-] [18 </home/duarte/MEOCloud/AC1-sebenta/stack1.png (PNG copy)> </home/duarte/MEOCloud/AC1-sebenta/registerconvention.png (PNG copy)>]
+ [19] [20 </home/duarte/MEOCloud/AC1-sebenta/stack1.png (PNG copy)> </home/duarte/MEOCloud/AC1-sebenta/registerconvention.png (PNG copy)>]
 Cap\'{\i }tulo 7.
-<mc1.png, id=76, 1293.83376pt x 927.465pt>
+<mc1.png, id=83, 1293.83376pt x 927.465pt>
 File: mc1.png Graphic file (type png)
  <use mc1.png>
-Package pdftex.def Info: mc1.png used on input line 503.
+Package pdftex.def Info: mc1.png used on input line 575.
 (pdftex.def)             Requested size: 388.15312pt x 278.24164pt.
- [19
+ [21
 
-] [20 </home/duarte/MEOCloud/AC1-sebenta/mc1.png>] [21] <mc2.png, id=87, 1242.6425pt x 380.42125pt>
+] [22 </home/duarte/MEOCloud/AC1-sebenta/mc1.png>] [23] <mc2.png, id=93, 1242.6425pt x 380.42125pt>
 File: mc2.png Graphic file (type png)
  <use mc2.png>
-Package pdftex.def Info: mc2.png used on input line 644.
+Package pdftex.def Info: mc2.png used on input line 716.
 (pdftex.def)             Requested size: 372.79562pt x 114.12724pt.
- [22 </home/duarte/MEOCloud/AC1-sebenta/mc2.png>] <FSm.png, id=91, 927.465pt x 593.21625pt>
+ [24 </home/duarte/MEOCloud/AC1-sebenta/mc2.png>] <FSm.png, id=97, 927.465pt x 593.21625pt>
 File: FSm.png Graphic file (type png)
  <use FSm.png>
-Package pdftex.def Info: FSm.png used on input line 695.
+Package pdftex.def Info: FSm.png used on input line 767.
 (pdftex.def)             Requested size: 370.97943pt x 237.28229pt.
- <pipeline3.png, id=92, 1543.7675pt x 913.4125pt>
+ <pipeline3.png, id=98, 1543.7675pt x 913.4125pt>
 File: pipeline3.png Graphic file (type png)
  <use pipeline3.png>
-Package pdftex.def Info: pipeline3.png used on input line 718.
+Package pdftex.def Info: pipeline3.png used on input line 790.
 (pdftex.def)             Requested size: 463.13382pt x 274.02586pt.
- [23 </home/duarte/MEOCloud/AC1-sebenta/FSm.png>] <pipeline4.png, id=96, 1420.30624pt x 674.52pt>
+ [25 </home/duarte/MEOCloud/AC1-sebenta/FSm.png>] <pipeline4.png, id=103, 1420.30624pt x 674.52pt>
 File: pipeline4.png Graphic file (type png)
  <use pipeline4.png>
-Package pdftex.def Info: pipeline4.png used on input line 739.
+Package pdftex.def Info: pipeline4.png used on input line 811.
 (pdftex.def)             Requested size: 426.09515pt x 202.35756pt.
- [24 </home/duarte/MEOCloud/AC1-sebenta/pipeline3.png> </home/duarte/MEOCloud/AC1-sebenta/pipeline4.png>] <pipeline5.png, id=100, 906.38625pt x 580.1675pt>
+ [26 </home/duarte/MEOCloud/AC1-sebenta/pipeline3.png> </home/duarte/MEOCloud/AC1-sebenta/pipeline4.png>] <pipeline5.png, id=107, 906.38625pt x 580.1675pt>
 File: pipeline5.png Graphic file (type png)
  <use pipeline5.png>
-Package pdftex.def Info: pipeline5.png used on input line 773.
+Package pdftex.def Info: pipeline5.png used on input line 845.
 (pdftex.def)             Requested size: 362.54808pt x 232.06288pt.
- [25 </home/duarte/MEOCloud/AC1-sebenta/pipeline5.png>] <pipeline1.png, id=105, 750.805pt x 525.965pt>
+ [27 </home/duarte/MEOCloud/AC1-sebenta/pipeline5.png>] <pipeline1.png, id=111, 750.805pt x 525.965pt>
 File: pipeline1.png Graphic file (type png)
  <use pipeline1.png>
-Package pdftex.def Info: pipeline1.png used on input line 811.
+Package pdftex.def Info: pipeline1.png used on input line 883.
 (pdftex.def)             Requested size: 300.31668pt x 210.38226pt.
- <pipeline2.png, id=106, 902.37125pt x 357.335pt>
+ <pipeline2.png, id=112, 902.37125pt x 357.335pt>
 File: pipeline2.png Graphic file (type png)
  <use pipeline2.png>
-Package pdftex.def Info: pipeline2.png used on input line 835.
+Package pdftex.def Info: pipeline2.png used on input line 907.
 (pdftex.def)             Requested size: 360.94211pt x 142.93146pt.
- [26 </home/duarte/MEOCloud/AC1-sebenta/pipeline1.png>] [27 </home/duarte/MEOCloud/AC1-sebenta/pipeline2.png>]
-
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:933: LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.933 		\newline
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:937: LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.937 		\newline
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Overfull \hbox (26.30832pt too wide) in paragraph at lines 962--963
+ [28 </home/duarte/MEOCloud/AC1-sebenta/pipeline1.png>] [29 </home/duarte/MEOCloud/AC1-sebenta/pipeline2.png>]
+Overfull \hbox (26.30832pt too wide) in paragraph at lines 1033--1034
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Unicode char �\expandafter (U+4F1)
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Unicode char �\expandafter (U+4F1)
 (inputenc)                not set up for use with LaTeX.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...$t2 #efetivamente a troca da instrução 
+l.1039 ...t2 #efetivamente a troca da instrução 
                                                   de sub com a sw não tem e...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Keyboard character used is undefined
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Keyboard character used is undefined
 (inputenc)                in inputencoding `utf8'.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...$t2 #efetivamente a troca da instrução 
+l.1039 ...t2 #efetivamente a troca da instrução 
                                                   de sub com a sw não tem e...
 You need to provide a definition with \DeclareInputText 
 or \DeclareInputMath before using this key.
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Unicode char �\expandafter (U+4F1)
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Unicode char �\expandafter (U+4F1)
 (inputenc)                not set up for use with LaTeX.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...$t2 #efetivamente a troca da instrução 
+l.1039 ...t2 #efetivamente a troca da instrução 
                                                   de sub com a sw não tem e...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Keyboard character used is undefined
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Keyboard character used is undefined
 (inputenc)                in inputencoding `utf8'.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...$t2 #efetivamente a troca da instrução 
+l.1039 ...t2 #efetivamente a troca da instrução 
                                                   de sub com a sw não tem e...
 You need to provide a definition with \DeclareInputText 
 or \DeclareInputMath before using this key.
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Unicode char �\expandafter (U+4F1)
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Unicode char �\expandafter (U+4F1)
 (inputenc)                not set up for use with LaTeX.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...roca da instrução de sub com a sw não 
+l.1039 ...oca da instrução de sub com a sw não 
                                                   tem efeito no resultado fi...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:968: Package inputenc Error: Keyboard character used is undefined
+/home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.tex:1039: Package inputenc Error: Keyboard character used is undefined
 (inputenc)                in inputencoding `utf8'.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.968 ...roca da instrução de sub com a sw não 
+l.1039 ...oca da instrução de sub com a sw não 
                                                   tem efeito no resultado fi...
 You need to provide a definition with \DeclareInputText 
 or \DeclareInputMath before using this key.
 
 
-Overfull \hbox (302.31113pt too wide) in paragraph at lines 968--969
+Overfull \hbox (302.31113pt too wide) in paragraph at lines 1039--1040
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (8.30814pt too wide) in paragraph at lines 975--976
+Overfull \hbox (8.30814pt too wide) in paragraph at lines 1046--1047
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[28] [29] [30
+[30] [31] [32
 
 ]
 runsystem(makeindex sebentaAC1.idx)...executed safely (allowed).
@@ -1286,10 +1259,10 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  41i,7n,44p,10457b,985s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmro10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on /home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.pdf (30 pages, 2466047 bytes).
+Output written on /home/duarte/MEOCloud/AC1-sebenta/sebentaAC1.pdf (32 pages, 2470032 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 165 PDF objects out of 1000 (max. 8388607)
+ 105 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

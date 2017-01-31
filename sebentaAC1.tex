@@ -151,7 +151,7 @@
 
 
 
-	\section{Operaçõe s Load Store}
+	\section{Operações Load Store}
 
 	  Como as operações ariteméticas operam apenas sobre registos, torna-se necessária  a criação de instruções que permitam carregar(\textit{load}) e guardar(\textit{store}) os valores dos registos da e para a memória.
 	  Surge, então, duas operações, a \textit{load-word} com a sintaxe \textbf{lw}\$rd,offset(\$registobase) e que permite a transferência de dados da memória para um regsto de destino, já a instrução \textit{load-word}  \textbf{sw}\$rs,offset(\$registobase) 	  que por oposição guarda na memória os valores de um registo.
@@ -243,7 +243,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 	Todas as outras operações de salto condicional resultam da conjugação da operação (slt ou slti) que retorna um caso o valor lógico 1 caso o primeiro registo seja menor do que o o segundo e 0 caso o contrário.
 
-	A conjugação do set on less com as operações de salto condicional bne e beq permitem impelemtar as operações:
+	A conjugação do \textit{set on less} com as operações de salto condicional bne e beq permitem implemtar as operações:
 	    \begin{itemize}
 	     \item bge;
 	     \item bgt;
@@ -252,6 +252,9 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	     \item beqz;
 	     \item blt
 	   \end{itemize}
+
+
+
 
  	\section{Operações de salto}
 
@@ -267,6 +270,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 
  \chapter{Memória do MIPS}
+
     Todas as linguagens de programação suportam vários tipos de dados cuja complexidade pode variar do muito simples(constantes, variáveis) para tipos de dados mais complicados(são exemplo os arrays e estruturas de dados).
     Uma vez que o processador não consegue armazenar grandes volumes de dados no seu interior( 32 registos de 32 bits no caso do MIPS), este delega essa função para a memória que por sua vez é capaz de guardar grandes volumes de dados.
 
@@ -274,6 +278,38 @@ op & rs & rt & rd & shmnt & funct\\\hline
     É por isso que na arquitetura MIPS o endereçamento à memória deve ser feito em múltiplos de quatro.
     Para que este tipo de endereçamento seja possível é necessário inserir um offset para aceder aos vários bytes que constituem a palavra.
     Este método de endereçar os dados armazenados permite otimizar a performance geral do sistema pois otimiza as transferências na memória.
+
+
+		\section{Acesso à memória externa}
+
+			Como o MIPS assenta sobre o principio load-store, que dita que as unicas interações entre a memória e o CPU são apenas  operações de transferência,isto é o processador não opera diretamente sobre a memória externa.
+
+		Existem vários modos de endereçamento:
+		\begin{itemize}
+		  \item endereçamento tipo registo;
+			\item endereçamento indireto por registo;
+			\item endereçamento indireto por registo com deslocamento;
+		\end{itemize}
+
+		\subsection{Endereçamento tipo Registo}
+			Este modo de endereçamento é direto e é apenas usado por operações manipulam os registos internos do processador, sendo os endereços dos operandos especificados diretamente pelos campos da própria instrução.No caso do MIPS só as instruções do tipo R é que usam este modo de endereçamento, sendo a informação disponibilizada nos campos rs e rt.
+
+	 \subsection{Endereçamento indireto por registo}
+
+	 		Para codificar as instruções de load e store num espaço restrito de 32 bits é necesário recorrer a este método, uma vez que os espaço de endereçamento que os campos de 5 bits das instruções do tipo R não corresponde ao espaço total disponibilizado pela memória externa.
+
+			Para resolver este problema surge o endereçamento indireto por registo, que consiste em, armazenar num campo da instrução o endereço de um registo que tem guardado o endereço da memória externa que se pretende aceder.Porém esta solução não responde totalmente às necessidades da aquitetura MIPS. Aí surge o outro modo de endereçamento, \textbf{indireto por registo com deslocamento}.
+
+			A diferença deste método é que adiciona mais um campo para poder endereçar um segundo registo,
+			ficando o espaço restante reservado a um offset, que vai ser utilizado para somar ao valor do registo rs o valor do offset. Para mais detalhes vai à secção que trata as instruções do tipo I;
+
+
+
+
+
+
+
+
 
 
  \chapter{ISA-Instruction Set Architecture}
@@ -290,18 +326,43 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	O \textit{Instruction Set} propriamente dito corresponde ao conjunto de instruções que o processador é capaz de executar.
 	Por norma cada arquitetura de processadores ou micro-controladores tem o seu \textbf{Instruction Set} dentro das mais populares destacam-se os ISA's do MIPS, ARM, Intel x86, Power PC e Cell;
 
+	Ao elaborar um instruction set devemos ter em conta as seguintes máximas:
+	\begin{itemize}
+		\item Regularidade favorece simplicidade;
+		\item Quanto mais pequeno mais rápido;
+		\item O que é mais comum deve ser mais rápido;
+		\item Um bom design implica compromissos adequados
+	\end{itemize}
+
+	As instruções em si podem ter um tamanho fixo,ou variável, no mips é adoptado o tamanho fixo com vista a simplificar o Instruction Fetch e o Instruction Decode, assim como simplificar a implementação do datapath em pipeline.
+
+  São reconhecidas quatro arquiteturas para o armazenamento dos operandos manipulados pelas instruções:
+
+	\begin{itemize}
+		\item Arquiteturas baseadas em acumulador : O resultado das operações é armazinado num registo especial chamado acumulador;
+		\item StacK(Pilha) : Os operandos são armazenados numa Stack;
+		\item Register-Memory: Os operandos residem em registos internos do CPU ou na memória;
+		\item Load-Store: Consiste em armazenar os operandos das instruções em registos internos do CPU e nunca em memória(Abordagem do MIPS);
+	\end{itemize}
+
+	Na Arquitetura MIPS o ISA tem dimensão fixa de 32 bits.
 
 	\section{Instruções}
+	As instruções são armazenadas na mesma forma que os numeros, ou seja uma mesma memória pode conter o código fonte de um programa  assim como os valores sobre o qual o programa opera. Esta filosofia encaixa no conceito de arquitectura \textit{stored-program}
 
-	Na arquitetura MIPS existem três tipos de instruções.Estas instruções servem têm comportamentos diferentes assim como fins diferentes.
+	Na arquitetura MIPS existem três tipos de instruções.Estas instruções servem têm comportamentos diferentes assim como fins diferentes.Dividem-se em:
+	\begin{itemize}
+		\item Intruções de processamento(aritméticas e lógicas);
+		\item Transferência de informação;
+		\item Controlo de Fluxo de Informação;
+	\end{itemize}
 
 	Todas as instruções do MIPS são armazenadas em registos de 32 bits tendo o tamanho fixo.
 
-	O número de registos disponíveis é de 32 bits.Este número reduzido de registos deve-se principalmente a duas razões. Uma delas é que ao aumentar o número de registos aumenta-se o número de
-	ciclos de relógio necessários para o acesso à memória, reduzindo a performance do processador, a outra prende-se com manter o tamanho das instruções pois aumentando o numero de registos era necessário
+	O número de registos disponíveis é de 32 bits.Este número reduzido de registos deve-se principalmente a duas razões. Uma delas é que ao aumentar o número de registos aumenta-se o número de	ciclos de relógio necessários para o acesso à memória, reduzindo a performance do processador, a outra prende-se com manter o tamanho das instruções pois aumentando o numero de registos era necessário
 	aumentar a quantidade de bits nos campos de endereçamento da memória.
 
-	
+
 
 
 	\subsection{Instruções do tipo R}
@@ -313,7 +374,9 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	 	\item \textbf{op} : mais conhecido por opcode, representa a operação da instrução que foi dada-6 bits;
 	 	\item \textbf{rs} : o operando do segundo registo-5 bits;
 	 	\item \textbf{rt} : operando do segundo registo-5 bits;
-	 	\item \textbf{rd} : registo de destino onde é guardado o resultado da operação a executar-5bits.
+	 	\item \textbf{rd} : registo de destino onde é guardado o resultado da operação a executar-5bits;
+		\item \textbf{shamt} : shift amount;
+		\item \textbf{funct} : campo function que indica à ALU a operação a executar.
 	 \end{itemize}
 
 
@@ -400,6 +463,15 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 	  \end{tabular}
 	  \end{center}
+
+		A gama de endereçamento que a constante de 16 bits proporciona é [-32768,+32767];
+
+		\subsection{Instruções do tipo J}
+
+		Este tipo de instruções abrangem as instruções de salto, jump, jump register e jump and link.
+
+		A instrução tem apenas dois campos o do opcode
+
 
 
 
@@ -930,11 +1002,10 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 		Exemplo Slides(61)
 
-		\newline
 
-		Embora as situações acima referidas permitam fazer uma deteção de Hazards esta não é suficiente, para o ser, é necessário avaliar o valor do sinal que controla a escrita nos registos(RegDst)
+		Embora as situações acima referidas permitam fazer uma deteção de Hazards esta não é suficiente, para o ser, é necessário avaliar o valor do sinal que controla a escrita nos registos(RegDst).
 
-		\newline
+
 		Ficamos com:
 
 		(\textbf{EX/MEM.RegWrite} == 1) and(\textbf{MEM/WB.RDD} == \textbf{ID/EX.RS}) ou
@@ -981,6 +1052,8 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	(\textbf{MEM/WB.RegWrite} == 1) and (\textbf{EX/MEM.RDD} == \textbf{RS} or \textbf{EX/MEM.RDD} == \textbf{RT}).
 
 	Quando é detetada a situação de stalling è inserida uma \textit{bubble} na fase EX fazendo um reset síncrono ao registo ID/EX. De seguida param-se as fases IF e ID para impedir a escrita no registo IF/ID e o incremento do PC.
+
+
 
 
 
