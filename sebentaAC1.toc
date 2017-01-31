@@ -13,7 +13,7 @@
 \contentsline {subsection}{\numberline {3.2.1}Exemplo 2}{11}
 \contentsline {section}{\numberline {3.3}Opera\IeC {\c c}\IeC {\~o}es com constantes e imediatos}{11}
 \contentsline {section}{\numberline {3.4}Opera\IeC {\c c}\IeC {\~o}es L\IeC {\'o}gicas}{11}
-\contentsline {subsection}{\numberline {3.4.1}Exemplo 3}{11}
+\contentsline {subsection}{\numberline {3.4.1}Exemplo 3}{12}
 \contentsline {section}{\numberline {3.5}Opera\IeC {\c c}\IeC {\~o}es de Salto Condicional}{12}
 \contentsline {subsection}{\numberline {3.5.1}Nota sobre as opera\IeC {\c c}\IeC {\~o}es virtuais}{12}
 \contentsline {section}{\numberline {3.6}Opera\IeC {\c c}\IeC {\~o}es de salto}{12}
@@ -21,6 +21,11 @@
 \contentsline {section}{\numberline {4.1}Acesso \IeC {\`a} mem\IeC {\'o}ria externa}{13}
 \contentsline {subsection}{\numberline {4.1.1}Endere\IeC {\c c}amento tipo Registo}{13}
 \contentsline {subsection}{\numberline {4.1.2}Endere\IeC {\c c}amento indireto por registo}{13}
+\contentsline {subsection}{\numberline {4.1.3}Alinhamento de dados na mem\IeC {\'o}ria}{14}
+\contentsline {subsection}{\numberline {4.1.4}Organiza\IeC {\c c}\IeC {\~a}o da mem\IeC {\'o}ria}{14}
+\contentsline {subsection}{\numberline {4.1.5}Endere\IeC {\c c}amento nas Instru\IeC {\c c}\IeC {\~o}es de salto Condicional(Branches) }{14}
+\contentsline {subsubsection}{Aviso \IeC {\`a} navega\IeC {\c c}\IeC {\~a}o}{14}
+\contentsline {subsection}{\numberline {4.1.6}Endere\IeC {\c c}amento nas Instru\IeC {\c c}\IeC {\~o}es de Salto Incondicional }{14}
 \contentsline {chapter}{\numberline {5}ISA-Instruction Set Architecture}{15}
 \contentsline {section}{\numberline {5.1}Instru\IeC {\c c}\IeC {\~o}es}{16}
 \contentsline {subsection}{\numberline {5.1.1}Instru\IeC {\c c}\IeC {\~o}es do tipo R}{16}
@@ -29,18 +34,15 @@
 \contentsline {subsection}{\numberline {5.1.4}Instru\IeC {\c c}\IeC {\~o}es do tipo J}{17}
 \contentsline {chapter}{\numberline {6}Fun\IeC {\c c}\IeC {\~o}es}{19}
 \contentsline {chapter}{\numberline {7}Datapath}{21}
-\contentsline {section}{\numberline {7.1}Datapath Single Cycle}{21}
-\contentsline {paragraph}{PC + Mem\IeC {\'o}ria de Instru\IeC {\c c}\IeC {\~o}es}{21}
-\contentsline {paragraph}{Registos}{21}
-\contentsline {section}{\numberline {7.2}Datapath Multi Cycle}{21}
-\contentsline {subsection}{\numberline {7.2.1}Estrutura}{21}
-\contentsline {subsection}{\numberline {7.2.2}Fases de Execu\IeC {\c c}\IeC {\~a}o}{22}
-\contentsline {subsubsection}{Fase 1}{22}
+\contentsline {section}{\numberline {7.1}Datapath Multi Cycle}{21}
+\contentsline {subsection}{\numberline {7.1.1}Estrutura}{21}
+\contentsline {subsection}{\numberline {7.1.2}Fases de Execu\IeC {\c c}\IeC {\~a}o}{21}
+\contentsline {subsubsection}{Fase 1}{21}
+\contentsline {paragraph}{Sinais de Controlo}{21}
 \contentsline {paragraph}{Sinais de Controlo}{22}
-\contentsline {paragraph}{Sinais de Controlo}{23}
-\contentsline {subsubsection}{Fase 3}{23}
-\contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~o}es de Refer\IeC {\^e}ncia \IeC {\`a} Mem\IeC {\'o}ria(LW,SW)}{23}
-\contentsline {subparagraph}{Sinais de Controlo}{23}
+\contentsline {subsubsection}{Fase 3}{22}
+\contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~o}es de Refer\IeC {\^e}ncia \IeC {\`a} Mem\IeC {\'o}ria(LW,SW)}{22}
+\contentsline {subparagraph}{Sinais de Controlo}{22}
 \contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~o}es do tipo R}{23}
 \contentsline {subparagraph}{Sinais de Controlo}{23}
 \contentsline {paragraph}{Instru\IeC {\c c}\IeC {\~a}o Branch}{23}
@@ -49,23 +51,23 @@
 \contentsline {subsubsection}{Fase 4}{23}
 \contentsline {paragraph}{Refer\IeC {\^e}ncia \IeC {\`a} Mem\IeC {\'o}ria}{23}
 \contentsline {subparagraph}{Sinais de Controlo}{23}
-\contentsline {paragraph}{Conclus\IeC {\~a}o das instru\IeC {\c c}\IeC {\~o}es do tipo R}{24}
-\contentsline {subparagraph}{Sinais de Controlo}{24}
-\contentsline {subsubsection}{Fase 5}{24}
-\contentsline {subsection}{\numberline {7.2.3}Unidade de Controlo}{24}
+\contentsline {paragraph}{Conclus\IeC {\~a}o das instru\IeC {\c c}\IeC {\~o}es do tipo R}{23}
+\contentsline {subparagraph}{Sinais de Controlo}{23}
+\contentsline {subsubsection}{Fase 5}{23}
+\contentsline {subsection}{\numberline {7.1.3}Unidade de Controlo}{23}
 \contentsline {subsubsection}{A m\IeC {\'a}quina de Estados}{24}
 \contentsline {subparagraph}{Instru\IeC {\c c}\IeC {\~o}es do tipo R}{24}
 \contentsline {subparagraph}{ADDI}{24}
-\contentsline {subparagraph}{SLTI}{25}
-\contentsline {section}{\numberline {7.3}Pipeline}{25}
-\contentsline {subsection}{\numberline {7.3.1}Estrutura}{25}
-\contentsline {subsection}{\numberline {7.3.2}Unidade de Controlo}{26}
-\contentsline {paragraph}{Instructon Fetch}{27}
-\contentsline {paragraph}{Instruction Decode/register file read}{27}
+\contentsline {subparagraph}{SLTI}{24}
+\contentsline {section}{\numberline {7.2}Pipeline}{24}
+\contentsline {subsection}{\numberline {7.2.1}Estrutura}{24}
+\contentsline {subsection}{\numberline {7.2.2}Unidade de Controlo}{25}
+\contentsline {paragraph}{Instructon Fetch}{25}
+\contentsline {paragraph}{Instruction Decode/register file read}{25}
 \contentsline {paragraph}{Execution}{27}
 \contentsline {paragraph}{Memory Access}{27}
 \contentsline {paragraph}{Write Back}{27}
-\contentsline {subsection}{\numberline {7.3.3}Hazards}{27}
+\contentsline {subsection}{\numberline {7.2.3}Hazards}{27}
 \contentsline {subsubsection}{Hazards Estruturais}{28}
 \contentsline {subsubsection}{Hazard de Controlo}{28}
 \contentsline {paragraph}{Stalling}{28}
@@ -73,7 +75,7 @@
 \contentsline {paragraph}{Branch Delay Slot}{29}
 \contentsline {subsubsection}{Hazards de Dados}{29}
 \contentsline {paragraph}{Forwarding}{29}
-\contentsline {paragraph}{Forwarding Control Unit}{30}
+\contentsline {paragraph}{Forwarding Control Unit}{29}
 \contentsline {subparagraph}{1}{30}
 \contentsline {subparagraph}{2}{30}
 \contentsline {paragraph}{Stalling}{30}

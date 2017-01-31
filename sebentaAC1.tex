@@ -180,6 +180,14 @@
 	        sw $s2,48($s4);	  #armazenamento com offset (12*4) da memoria
 	      \end{lstlisting}
 
+			Existe também instruções que permitem escrever e ler apenas um byte de memória, sendo elas sb,lb e lbu.
+
+			Quando se pretende ler e escrever um byte de informação o MIPS gera um endereço multiplo de quatro que permite aceder à word que contem o byte a aceder.
+
+			Quando é para ler um byte é executada uma instrução para ler uma word e dos 32 bits que a word contêm é retirado o byte indicado pelo endereço.
+
+			Para a escrita, numa primeira fase faz-se load da word e de seguida é feita a leitura dos 32 bits que foram carregados, substitui-se o byte que se quer guardar no endereço especificado. Por fim é guardada a word alterada no endereço múltiplo de quatro.
+
 	  \section {Operações com constantes e imediatos}
 
 	      Grande parte dos programas recorre a um numero de variáveis maior que o o número de registos do processador. Por isso o compilador tenta guardar apenas aquelas variáveis que
@@ -200,8 +208,8 @@
 		  addi $s3,$s3,4;
 		\end{lstlisting}
 
-	      O MIPS aceita nativamente esta instrução, permitiundo suprimir o uso da instrução lw juntamente com a add, optimizando assim a execução do programa.
-
+	      O MIPS aceita nativamente esta instrução, permitiundo suprimir o uso da instrução lw juntamente com a add, otimizando assim a execução do programa.
+, jump register e
 	  \section{Operações Lógicas}
 
 	    O mips suporta as seguintes operações lógicas:
@@ -274,8 +282,8 @@ op & rs & rt & rd & shmnt & funct\\\hline
     Todas as linguagens de programação suportam vários tipos de dados cuja complexidade pode variar do muito simples(constantes, variáveis) para tipos de dados mais complicados(são exemplo os arrays e estruturas de dados).
     Uma vez que o processador não consegue armazenar grandes volumes de dados no seu interior( 32 registos de 32 bits no caso do MIPS), este delega essa função para a memória que por sua vez é capaz de guardar grandes volumes de dados.
 
-    Por vezes torna-se útil endereçar individualmente cada um dos quatro bytes que constitui uma palavra. Pode-se dizer que a memória é\textit{byte-adressable}
-    É por isso que na arquitetura MIPS o endereçamento à memória deve ser feito em múltiplos de quatro.
+    Por vezes torna-se útil endereçar individualmente cada um dos quatro bytes que constitui uma palavra. Pode-se dizer que a memória é \textit{byte-adressable}
+
     Para que este tipo de endereçamento seja possível é necessário inserir um offset para aceder aos vários bytes que constituem a palavra.
     Este método de endereçar os dados armazenados permite otimizar a performance geral do sistema pois otimiza as transferências na memória.
 
@@ -289,19 +297,60 @@ op & rs & rt & rd & shmnt & funct\\\hline
 		  \item endereçamento tipo registo;
 			\item endereçamento indireto por registo;
 			\item endereçamento indireto por registo com deslocamento;
+			\item endereçamento relativo ao PC;
+			\item endereçamento direto(instruções J);
 		\end{itemize}
 
 		\subsection{Endereçamento tipo Registo}
-			Este modo de endereçamento é direto e é apenas usado por operações manipulam os registos internos do processador, sendo os endereços dos operandos especificados diretamente pelos campos da própria instrução.No caso do MIPS só as instruções do tipo R é que usam este modo de endereçamento, sendo a informação disponibilizada nos campos rs e rt.
+			Este modo de endereçamento é direto e é apenas usado por operações que manipulam os registos internos do processador, sendo os endereços dos operandos especificados diretamente pelos campos da própria instrução.No caso do MIPS só as instruções do tipo R é que usam este modo de endereçamento, sendo a informação disponibilizada nos campos rs e rt.
 
 	 \subsection{Endereçamento indireto por registo}
 
 	 		Para codificar as instruções de load e store num espaço restrito de 32 bits é necesário recorrer a este método, uma vez que os espaço de endereçamento que os campos de 5 bits das instruções do tipo R não corresponde ao espaço total disponibilizado pela memória externa.
 
-			Para resolver este problema surge o endereçamento indireto por registo, que consiste em, armazenar num campo da instrução o endereço de um registo que tem guardado o endereço da memória externa que se pretende aceder.Porém esta solução não responde totalmente às necessidades da aquitetura MIPS. Aí surge o outro modo de endereçamento, \textbf{indireto por registo com deslocamento}.
+			Para resolver este problema surge o endereçamento indireto por registo, que consiste em, armazenar num campo da instrução o endereço de um registo que tem guardado o endereço da memória externa que se pretende aceder.Porém esta solução não responde totalmente às necessidades da arquitetura MIPS. Aí surge um outro modo de endereçamento, \textbf{indireto por registo com deslocamento}.
 
 			A diferença deste método é que adiciona mais um campo para poder endereçar um segundo registo,
-			ficando o espaço restante reservado a um offset, que vai ser utilizado para somar ao valor do registo rs o valor do offset. Para mais detalhes vai à secção que trata as instruções do tipo I;
+			ficando o espaço restante reservado a um offset, que vai ser utilizado para somar ao valor do registo rs o valor do offset.
+		\subsection{Alinhamento de dados na memória}
+
+    Em termos de hardware o barramento de endereços apenas tem 30 bits disponíveis o que implica que o acesso a palavras de memória é feito com endereços que sejam múltiplos de quatro(dois algarismos menos significativos a zero).
+
+		Se numa instrução de escrita ou leitura da memória for indicado um endereço que não seja múltiplo de 4 o MIPS lança uma exceção, esta situação pode ser resolvida recorrendo ao uso da diretiva \textit{allign}.
+
+		O uso da diretiva acima referida permite forçar o alinhamento do endereço de uma variável a um valor múltiplo de $2^n$
+
+	 \subsection{Organização da memória}
+
+	 	Por ser byte adressable a memória do mips encontra-se organizada em bytes.
+		Para armazenar palavras maiores do que 8 bits é necessário usar várias posições de memória, no caso do mips quatro posições consecutivas por cada word(32 bits = 4 bytes);
+
+		Surgem duas formas de organizar o armazenamento dos vários byte da memória:
+		\begin{itemize}
+			\item big-endian : consiste em guardar o byte mais significativo no endereço mais baixo da memória;
+			\item little-endian: o byte menos significatico é guardado no endereço mais baixo da memória;
+		\end{itemize}
+
+		\subsection{Endereçamento nas Instruções de salto Condicional(Branches) }
+
+			As instruções de salto condicional adoptam o formato I.
+
+			O Endereçamento é relativo ao PC, uma vez que o salto é feito para a periferia da instrução a executar.
+
+			Assim o valor armazenado no campo de offset é armazenado em complemento para 2(para premitir avançar ou recuar na instrução);
+
+			Assim sendo o endereço para o qual se vai efetuar o salto é calculado efetuando a extensão de sinal do offset e somando esse valor ao valor atual do PC.
+
+			Conclui-se que as instruções de salto condicional permitem no máximo, um salto até 32K instruções para a frente ou para trás;
+
+			\subsubsection{Aviso à navegação}
+				Como o endereçamento à memória externa é feito em múltiplos de quatro, o offset que é armazenado no campo da instrução é shiftado duas vezes à direita(divisão por quatro).
+
+			\subsection{Endereçamento nas Instruções de Salto Incondicional }
+
+			Este método de endereçamento é usado pelas instruções jump e jal e adoptam o formato de instrução J.
+
+			Este método calcula o endereço usando os 4 bits mais significativos do PC concatenado com os 28 bits menos sigificativos do endereço alvo.
 
 
 
@@ -367,7 +416,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 	\subsection{Instruções do tipo R}
 
-	Estas instruções são responsáveis pelas operações lógicas e aritméticas.
+	Estas instruções são responsáveis pelas operações lógicas e aritméticas assim como o jump register.
 
 	Têm como operandos os seguintes elementos:
 	 \begin{itemize}
@@ -393,7 +442,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 	As instruções do tipo I são usadas para exprimir as operações de leitrua e escrita na memória assim como as operações com imediatos.
 
-	Por permitir o endereçamento à memoria e representação de constantes a configuração das istruções é diferente.
+	Por permitir o endereçamento à memoria e representação de constantes a configuração das instruções é diferente.
 	É de notar que a arquitetutra MIPS opta por manter o tamanho das intruções fixo (32 bits) alterando-se o tamanho de alguns dos campos da instrução..
 
 	Têm como operandos os seguintes elementos:
@@ -407,7 +456,7 @@ op & rs & rt & rd & shmnt & funct\\\hline
 	\begin{figure}[htp]
 	    \centering
 	    \includegraphics[scale=0.4]{instI.png}
-	    \caption{configuração das intruções do tipo I}
+	    \caption{Disposição dos campos nas intruções do tipo I}
 	    \label{insturçãoi}
 	\end{figure}
 
@@ -468,9 +517,9 @@ op & rs & rt & rd & shmnt & funct\\\hline
 
 		\subsection{Instruções do tipo J}
 
-		Este tipo de instruções abrangem as instruções de salto, jump, jump register e jump and link.
+		Este tipo de instruções abrangem as instruções de salto, jump e jump and link.
 
-		A instrução tem apenas dois campos o do opcode
+		A instrução tem apenas dois campos o do opcode e um segundo que armazena o endereço alvo shiftado duas vezes à direita;
 
 
 
@@ -526,30 +575,30 @@ op & rs & rt & rd & shmnt & funct\\\hline
 		\end{figure}
 
 \chapter{Datapath}
-
-		\section{Datapath Single Cycle}
-
-			Nos capitulos acima forma descritas as instuções base do MIPS agora vamos tentar criar um processador que execute essas instruções o conjunto de blocos que as executa chama-se de datapath.
-
-			Os dois primeiros passos de execução de uma instrução consistem em :
-
-			\begin{enumerate}
-				\item Usando o endereço de memória armazenado no PC para aceder à instrução armazenada na memória de instruções;
-				\item Ler o conteudo de um ou dois registos(depende da instrução a executar);
-			\end{enumerate}
-
-			Depois destes dois passos iniciais dependendo do tipo de instrução a executar os dados vão seguir caminhos diferenntes.Dentro do mesmo tipo de instruções os elementos a usar não variam muito, tornando mais fácia a implementação do Datapath.
-
-			Abaixo seguem os elementos base e as suas funcionalidades de um datapath single cycle.
-
-			\paragraph{PC + Memória de Instruções}
-
-				A junção do PC com a Memória de instruções e um adder permite-nos montar um circuito que permite efetuar o endereçamento à memória de instrução para poder dar inicio à execução de uma instrução o adder permite determinar qual o endereço da próxima instrução.Esse adder vai adicionar 4 bytes ao endereço atual do PC (PC+4).
-
-			\paragraph{Registos}
-
-
-
+		%
+		% \section{Datapath Single Cycle}
+		%
+		% 	Nos capitulos acima forma descritas as instuções base do MIPS agora vamos tentar criar um processador que execute essas instruções o conjunto de blocos que as executa chama-se de datapath.
+		%
+		% 	Os dois primeiros passos de execução de uma instrução consistem em :
+		%
+		% 	\begin{enumerate}
+		% 		\item Usando o endereço de memória armazenado no PC para aceder à instrução armazenada na memória de instruções;
+		% 		\item Ler o conteúdo de um ou dois registos(depende da instrução a executar);
+		% 	\end{enumerate}
+		%
+		% 	Depois destes dois passos iniciais dependendo do tipo de instrução a executar os dados vão seguir caminhos diferenntes.Dentro do mesmo tipo de instruções os elementos a usar não variam muito, tornando mais fácil a implementação do Datapath.
+		%
+		% 	Abaixo seguem os elementos base e as suas funcionalidades de um datapath single cycle.
+		%
+		% 	\paragraph{PC + Memória de Instruções}
+		%
+		% 		A junção do PC com a Memória de instruções e um adder permite-nos montar um circuito que permite efetuar o endereçamento à memória de instrução para poder dar inicio à execução de uma instrução o adder permite determinar qual o endereço da próxima instrução.Esse adder vai adicionar 4 bytes ao endereço atual do PC (PC+4).
+		%
+		% 	\paragraph{Registos}
+		%
+		%
+		%
 
 
 		\section{Datapath Multi Cycle}
